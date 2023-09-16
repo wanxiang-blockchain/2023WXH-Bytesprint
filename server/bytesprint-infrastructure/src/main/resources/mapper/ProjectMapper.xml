@@ -1,0 +1,1005 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bytesprint.infrastructure.mysql.mapper.ProjectMapper">
+
+
+    <insert id="insertProject" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `bytesprint_project`
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="no!=null">
+                `no`,
+            </if>
+            <if test="name!=null">
+                `name`,
+            </if>
+            <if test="description!=null">
+                `description`,
+            </if>
+            <if test="contactName!=null">
+                `contact_name`,
+            </if>
+            <if test="contactPhone!=null">
+                `contact_phone`,
+            </if>
+            <if test="contactEmail!=null">
+                `contact_email`,
+            </if>
+            <if test="companyCode!=null">
+                `company_code`,
+            </if>
+            <if test="status!=null">
+                `status`,
+            </if>
+            <if test="joinMemberCount!=null">
+                `join_member_count`,
+            </if>
+            <if test="maxJoinMemberCount!=null">
+                `max_join_member_count`,
+            </if>
+            <if test="categoryId!=null">
+                `category_Id`,
+            </if>
+            <if test="startTime!=null">
+                `start_time`,
+            </if>
+            <if test="endTime!=null">
+                `end_time`,
+            </if>
+            <if test="createTime!=null">
+                `create_time`,
+            </if>
+            <if test="updateTime!=null">
+                `update_time`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="no!=null">
+                #{no},
+            </if>
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="description!=null">
+                #{description},
+            </if>
+            <if test="contactName!=null">
+                #{contactName},
+            </if>
+            <if test="contactPhone!=null">
+                #{contactPhone},
+            </if>
+            <if test="contactEmail!=null">
+                #{contactEmail},
+            </if>
+            <if test="companyCode!=null">
+                #{companyCode},
+            </if>
+            <if test="status!=null">
+                #{status},
+            </if>
+            <if test="joinMemberCount!=null">
+                #{joinMemberCount},
+            </if>
+            <if test="maxJoinMemberCount!=null">
+                #{maxJoinMemberCount},
+            </if>
+            <if test="categoryId!=null">
+                #{categoryId},
+            </if>
+            <if test="startTime!=null">
+                #{startTime},
+            </if>
+            <if test="endTime!=null">
+                #{endTime},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+            <if test="updateTime!=null">
+                #{updateTime},
+            </if>
+        </trim>
+        )
+    </insert>
+
+
+    <update id="updateProject">
+        UPDATE `bytesprint_project`
+        SET
+        <trim suffixOverrides=",">
+            <if test="no != null and no!=''">
+                `no` = #{no},
+            </if>
+            <if test="name != null and name!=''">
+                `name` = #{name},
+            </if>
+            <if test="description != null and description!=''">
+                `description` = #{description},
+            </if>
+            <if test="contactName != null and contactName!=''">
+                `contact_name` = #{contactName},
+            </if>
+            <if test="contactPhone != null and contactPhone!=''">
+                `contact_phone` = #{contactPhone},
+            </if>
+            <if test="contactEmail != null and contactEmail!=''">
+                `contact_email` = #{contactEmail},
+            </if>
+            <if test="companyCode != null and companyCode!=''">
+                `company_code` = #{companyCode},
+            </if>
+            <if test="status != null and status!=''">
+                `status` = #{status},
+            </if>
+            <if test="joinMemberCount != null">
+                `join_member_count` = #{joinMemberCount},
+            </if>
+            <if test="maxJoinMemberCount != null">
+                `max_join_member_count` = #{maxJoinMemberCount},
+            </if>
+            <if test="categoryId != null">
+                `category_Id` = #{categoryId},
+            </if>
+            <if test="startTime != null">
+                `start_time` = #{startTime},
+            </if>
+            <if test="endTime != null">
+                `end_time` = #{endTime},
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+    <resultMap type="com.bytesprint.infrastructure.mysql.pojo.ProjectPojo" id="ProjectMap">
+        <result property="id" column="id"/>
+        <result property="no" column="no"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="contactName" column="contact_name"/>
+        <result property="contactPhone" column="contact_phone"/>
+        <result property="contactEmail" column="contact_email"/>
+        <result property="companyCode" column="company_code"/>
+        <result property="status" column="status"/>
+        <result property="joinMemberCount" column="join_member_count"/>
+        <result property="maxJoinMemberCount" column="max_join_member_count"/>
+        <result property="categoryId" column="category_Id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+    <select id="queryProject" resultMap="ProjectMap">
+        select
+        <include refid="baseResult"></include>
+        from `bytesprint_project`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="no != null and no!=''">
+                `no` = #{no} and
+            </if>
+            <if test="name != null and name!=''">
+                `name` = #{name} and
+            </if>
+            <if test="description != null and description!=''">
+                `description` = #{description} and
+            </if>
+            <if test="contactName != null and contactName!=''">
+                `contact_name` = #{contactName} and
+            </if>
+            <if test="contactPhone != null and contactPhone!=''">
+                `contact_phone` = #{contactPhone} and
+            </if>
+            <if test="contactEmail != null and contactEmail!=''">
+                `contact_email` = #{contactEmail} and
+            </if>
+            <if test="companyCode != null and companyCode!=''">
+                `company_code` = #{companyCode} and
+            </if>
+            <if test="status != null and status!=''">
+                `status` = #{status} and
+            </if>
+            <if test="joinMemberCount != null">
+                `join_member_count` = #{joinMemberCount} and
+            </if>
+            <if test="maxJoinMemberCount != null">
+                `max_join_member_count` = #{maxJoinMemberCount} and
+            </if>
+            <if test="categoryId != null">
+                `category_Id` = #{categoryId} and
+            </if>
+            <if test="startTime != null">
+                `start_time` = #{startTime} and
+            </if>
+            <if test="endTime != null">
+                `end_time` = #{endTime} and
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime} and
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime} and
+            </if>
+            <if test="(_parameter instanceof com.bytesprint.infrastructure.mysql.pojo.ProjectPojo$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="noList != null">
+                    `no` in
+                    <foreach collection="noList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyNo!=null and fuzzyNo.size()>0">
+                    (
+                    <foreach collection="fuzzyNo" separator="or" item="item">
+                        `No` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyNo!=null and rightFuzzyNo.size()>0">
+                    (
+                    <foreach collection="rightFuzzyNo" separator="or" item="item">
+                        `No` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="nameList != null">
+                    `name` in
+                    <foreach collection="nameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyName!=null and fuzzyName.size()>0">
+                    (
+                    <foreach collection="fuzzyName" separator="or" item="item">
+                        `Name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyName!=null and rightFuzzyName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyName" separator="or" item="item">
+                        `Name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="descriptionList != null">
+                    `description` in
+                    <foreach collection="descriptionList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyDescription!=null and fuzzyDescription.size()>0">
+                    (
+                    <foreach collection="fuzzyDescription" separator="or" item="item">
+                        `Description` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyDescription!=null and rightFuzzyDescription.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDescription" separator="or" item="item">
+                        `Description` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="contactNameList != null">
+                    `contact_name` in
+                    <foreach collection="contactNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyContactName!=null and fuzzyContactName.size()>0">
+                    (
+                    <foreach collection="fuzzyContactName" separator="or" item="item">
+                        `Contact_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyContactName!=null and rightFuzzyContactName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyContactName" separator="or" item="item">
+                        `Contact_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="contactPhoneList != null">
+                    `contact_phone` in
+                    <foreach collection="contactPhoneList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyContactPhone!=null and fuzzyContactPhone.size()>0">
+                    (
+                    <foreach collection="fuzzyContactPhone" separator="or" item="item">
+                        `Contact_phone` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyContactPhone!=null and rightFuzzyContactPhone.size()>0">
+                    (
+                    <foreach collection="rightFuzzyContactPhone" separator="or" item="item">
+                        `Contact_phone` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="contactEmailList != null">
+                    `contact_email` in
+                    <foreach collection="contactEmailList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyContactEmail!=null and fuzzyContactEmail.size()>0">
+                    (
+                    <foreach collection="fuzzyContactEmail" separator="or" item="item">
+                        `Contact_email` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyContactEmail!=null and rightFuzzyContactEmail.size()>0">
+                    (
+                    <foreach collection="rightFuzzyContactEmail" separator="or" item="item">
+                        `Contact_email` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="companyCodeList != null">
+                    `company_code` in
+                    <foreach collection="companyCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyCompanyCode!=null and fuzzyCompanyCode.size()>0">
+                    (
+                    <foreach collection="fuzzyCompanyCode" separator="or" item="item">
+                        `Company_code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyCompanyCode!=null and rightFuzzyCompanyCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCompanyCode" separator="or" item="item">
+                        `Company_code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="statusList != null">
+                    `status` in
+                    <foreach collection="statusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyStatus!=null and fuzzyStatus.size()>0">
+                    (
+                    <foreach collection="fuzzyStatus" separator="or" item="item">
+                        `Status` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyStatus!=null and rightFuzzyStatus.size()>0">
+                    (
+                    <foreach collection="rightFuzzyStatus" separator="or" item="item">
+                        `Status` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="joinMemberCountList != null">
+                    `join_member_count` in
+                    <foreach collection="joinMemberCountList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="joinMemberCountSt !=null">
+                    `join_member_count` >= #{joinMemberCountSt} and
+                </if>
+                <if test="joinMemberCountEd!=null">
+                    `join_member_count` &lt;= #{joinMemberCountEd} and
+                </if>
+                <if test="maxJoinMemberCountList != null">
+                    `max_join_member_count` in
+                    <foreach collection="maxJoinMemberCountList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="maxJoinMemberCountSt !=null">
+                    `max_join_member_count` >= #{maxJoinMemberCountSt} and
+                </if>
+                <if test="maxJoinMemberCountEd!=null">
+                    `max_join_member_count` &lt;= #{maxJoinMemberCountEd} and
+                </if>
+                <if test="categoryIdList != null">
+                    `category_Id` in
+                    <foreach collection="categoryIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="categoryIdSt !=null">
+                    `category_Id` >= #{categoryIdSt} and
+                </if>
+                <if test="categoryIdEd!=null">
+                    `category_Id` &lt;= #{categoryIdEd} and
+                </if>
+                <if test="startTimeList != null">
+                    `start_time` in
+                    <foreach collection="startTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="startTimeSt !=null">
+                    `start_time` >= #{startTimeSt} and
+                </if>
+                <if test="startTimeEd!=null">
+                    `start_time` &lt;= #{startTimeEd} and
+                </if>
+                <if test="endTimeList != null">
+                    `end_time` in
+                    <foreach collection="endTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="endTimeSt !=null">
+                    `end_time` >= #{endTimeSt} and
+                </if>
+                <if test="endTimeEd!=null">
+                    `end_time` &lt;= #{endTimeEd} and
+                </if>
+                <if test="createTimeList != null">
+                    `create_time` in
+                    <foreach collection="createTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="createTimeSt !=null">
+                    `create_time` >= #{createTimeSt} and
+                </if>
+                <if test="createTimeEd!=null">
+                    `create_time` &lt;= #{createTimeEd} and
+                </if>
+                <if test="updateTimeList != null">
+                    `update_time` in
+                    <foreach collection="updateTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="updateTimeSt !=null">
+                    `update_time` >= #{updateTimeSt} and
+                </if>
+                <if test="updateTimeEd!=null">
+                    `update_time` &lt;= #{updateTimeEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryProjectLimit1" resultMap="ProjectMap">
+        select
+        <include refid="baseResult"></include>
+        from `bytesprint_project`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="no != null and no!=''">
+                `no` = #{no} and
+            </if>
+            <if test="name != null and name!=''">
+                `name` = #{name} and
+            </if>
+            <if test="description != null and description!=''">
+                `description` = #{description} and
+            </if>
+            <if test="contactName != null and contactName!=''">
+                `contact_name` = #{contactName} and
+            </if>
+            <if test="contactPhone != null and contactPhone!=''">
+                `contact_phone` = #{contactPhone} and
+            </if>
+            <if test="contactEmail != null and contactEmail!=''">
+                `contact_email` = #{contactEmail} and
+            </if>
+            <if test="companyCode != null and companyCode!=''">
+                `company_code` = #{companyCode} and
+            </if>
+            <if test="status != null and status!=''">
+                `status` = #{status} and
+            </if>
+            <if test="joinMemberCount != null">
+                `join_member_count` = #{joinMemberCount} and
+            </if>
+            <if test="maxJoinMemberCount != null">
+                `max_join_member_count` = #{maxJoinMemberCount} and
+            </if>
+            <if test="categoryId != null">
+                `category_Id` = #{categoryId} and
+            </if>
+            <if test="startTime != null">
+                `start_time` = #{startTime} and
+            </if>
+            <if test="endTime != null">
+                `end_time` = #{endTime} and
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime} and
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime} and
+            </if>
+            <if test="(_parameter instanceof com.bytesprint.infrastructure.mysql.pojo.ProjectPojo$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="noList != null">
+                    `no` in
+                    <foreach collection="noList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyNo!=null and fuzzyNo.size()>0">
+                    (
+                    <foreach collection="fuzzyNo" separator="or" item="item">
+                        `No` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyNo!=null and rightFuzzyNo.size()>0">
+                    (
+                    <foreach collection="rightFuzzyNo" separator="or" item="item">
+                        `No` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="nameList != null">
+                    `name` in
+                    <foreach collection="nameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyName!=null and fuzzyName.size()>0">
+                    (
+                    <foreach collection="fuzzyName" separator="or" item="item">
+                        `Name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyName!=null and rightFuzzyName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyName" separator="or" item="item">
+                        `Name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="descriptionList != null">
+                    `description` in
+                    <foreach collection="descriptionList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyDescription!=null and fuzzyDescription.size()>0">
+                    (
+                    <foreach collection="fuzzyDescription" separator="or" item="item">
+                        `Description` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyDescription!=null and rightFuzzyDescription.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDescription" separator="or" item="item">
+                        `Description` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="contactNameList != null">
+                    `contact_name` in
+                    <foreach collection="contactNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyContactName!=null and fuzzyContactName.size()>0">
+                    (
+                    <foreach collection="fuzzyContactName" separator="or" item="item">
+                        `Contact_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyContactName!=null and rightFuzzyContactName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyContactName" separator="or" item="item">
+                        `Contact_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="contactPhoneList != null">
+                    `contact_phone` in
+                    <foreach collection="contactPhoneList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyContactPhone!=null and fuzzyContactPhone.size()>0">
+                    (
+                    <foreach collection="fuzzyContactPhone" separator="or" item="item">
+                        `Contact_phone` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyContactPhone!=null and rightFuzzyContactPhone.size()>0">
+                    (
+                    <foreach collection="rightFuzzyContactPhone" separator="or" item="item">
+                        `Contact_phone` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="contactEmailList != null">
+                    `contact_email` in
+                    <foreach collection="contactEmailList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyContactEmail!=null and fuzzyContactEmail.size()>0">
+                    (
+                    <foreach collection="fuzzyContactEmail" separator="or" item="item">
+                        `Contact_email` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyContactEmail!=null and rightFuzzyContactEmail.size()>0">
+                    (
+                    <foreach collection="rightFuzzyContactEmail" separator="or" item="item">
+                        `Contact_email` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="companyCodeList != null">
+                    `company_code` in
+                    <foreach collection="companyCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyCompanyCode!=null and fuzzyCompanyCode.size()>0">
+                    (
+                    <foreach collection="fuzzyCompanyCode" separator="or" item="item">
+                        `Company_code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyCompanyCode!=null and rightFuzzyCompanyCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCompanyCode" separator="or" item="item">
+                        `Company_code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="statusList != null">
+                    `status` in
+                    <foreach collection="statusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyStatus!=null and fuzzyStatus.size()>0">
+                    (
+                    <foreach collection="fuzzyStatus" separator="or" item="item">
+                        `Status` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyStatus!=null and rightFuzzyStatus.size()>0">
+                    (
+                    <foreach collection="rightFuzzyStatus" separator="or" item="item">
+                        `Status` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="joinMemberCountList != null">
+                    `join_member_count` in
+                    <foreach collection="joinMemberCountList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="joinMemberCountSt !=null">
+                    `join_member_count` >= #{joinMemberCountSt} and
+                </if>
+                <if test="joinMemberCountEd!=null">
+                    `join_member_count` &lt;= #{joinMemberCountEd} and
+                </if>
+                <if test="maxJoinMemberCountList != null">
+                    `max_join_member_count` in
+                    <foreach collection="maxJoinMemberCountList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="maxJoinMemberCountSt !=null">
+                    `max_join_member_count` >= #{maxJoinMemberCountSt} and
+                </if>
+                <if test="maxJoinMemberCountEd!=null">
+                    `max_join_member_count` &lt;= #{maxJoinMemberCountEd} and
+                </if>
+                <if test="categoryIdList != null">
+                    `category_Id` in
+                    <foreach collection="categoryIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="categoryIdSt !=null">
+                    `category_Id` >= #{categoryIdSt} and
+                </if>
+                <if test="categoryIdEd!=null">
+                    `category_Id` &lt;= #{categoryIdEd} and
+                </if>
+                <if test="startTimeList != null">
+                    `start_time` in
+                    <foreach collection="startTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="startTimeSt !=null">
+                    `start_time` >= #{startTimeSt} and
+                </if>
+                <if test="startTimeEd!=null">
+                    `start_time` &lt;= #{startTimeEd} and
+                </if>
+                <if test="endTimeList != null">
+                    `end_time` in
+                    <foreach collection="endTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="endTimeSt !=null">
+                    `end_time` >= #{endTimeSt} and
+                </if>
+                <if test="endTimeEd!=null">
+                    `end_time` &lt;= #{endTimeEd} and
+                </if>
+                <if test="createTimeList != null">
+                    `create_time` in
+                    <foreach collection="createTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="createTimeSt !=null">
+                    `create_time` >= #{createTimeSt} and
+                </if>
+                <if test="createTimeEd!=null">
+                    `create_time` &lt;= #{createTimeEd} and
+                </if>
+                <if test="updateTimeList != null">
+                    `update_time` in
+                    <foreach collection="updateTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="updateTimeSt !=null">
+                    `update_time` >= #{updateTimeSt} and
+                </if>
+                <if test="updateTimeEd!=null">
+                    `update_time` &lt;= #{updateTimeEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `no`,
+            `name`,
+            `description`,
+            `contact_name`,
+            `contact_phone`,
+            `contact_email`,
+            `company_code`,
+            `status`,
+            `join_member_count`,
+            `max_join_member_count`,
+            `category_Id`,
+            `start_time`,
+            `end_time`,
+            `create_time`,
+            `update_time`,
+        </trim>
+    </sql>
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test="(_parameter instanceof com.bytesprint.infrastructure.mysql.pojo.ProjectPojo$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                        <if test="fetchFields.fetchFields.id==true">
+                            `id`,
+                        </if>
+                        <if test="fetchFields.fetchFields.no==true">
+                            `no`,
+                        </if>
+                        <if test="fetchFields.fetchFields.name==true">
+                            `name`,
+                        </if>
+                        <if test="fetchFields.fetchFields.description==true">
+                            `description`,
+                        </if>
+                        <if test="fetchFields.fetchFields.contactName==true">
+                            `contact_name`,
+                        </if>
+                        <if test="fetchFields.fetchFields.contactPhone==true">
+                            `contact_phone`,
+                        </if>
+                        <if test="fetchFields.fetchFields.contactEmail==true">
+                            `contact_email`,
+                        </if>
+                        <if test="fetchFields.fetchFields.companyCode==true">
+                            `company_code`,
+                        </if>
+                        <if test="fetchFields.fetchFields.status==true">
+                            `status`,
+                        </if>
+                        <if test="fetchFields.fetchFields.joinMemberCount==true">
+                            `join_member_count`,
+                        </if>
+                        <if test="fetchFields.fetchFields.maxJoinMemberCount==true">
+                            `max_join_member_count`,
+                        </if>
+                        <if test="fetchFields.fetchFields.categoryId==true">
+                            `category_Id`,
+                        </if>
+                        <if test="fetchFields.fetchFields.startTime==true">
+                            `start_time`,
+                        </if>
+                        <if test="fetchFields.fetchFields.endTime==true">
+                            `end_time`,
+                        </if>
+                        <if test="fetchFields.fetchFields.createTime==true">
+                            `create_time`,
+                        </if>
+                        <if test="fetchFields.fetchFields.updateTime==true">
+                            `update_time`,
+                        </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                        <if test="fetchFields.excludeFields.id==null">
+                            `id`,
+                        </if>
+                        <if test="fetchFields.excludeFields.no==null">
+                            `no`,
+                        </if>
+                        <if test="fetchFields.excludeFields.name==null">
+                            `name`,
+                        </if>
+                        <if test="fetchFields.excludeFields.description==null">
+                            `description`,
+                        </if>
+                        <if test="fetchFields.excludeFields.contactName==null">
+                            `contact_name`,
+                        </if>
+                        <if test="fetchFields.excludeFields.contactPhone==null">
+                            `contact_phone`,
+                        </if>
+                        <if test="fetchFields.excludeFields.contactEmail==null">
+                            `contact_email`,
+                        </if>
+                        <if test="fetchFields.excludeFields.companyCode==null">
+                            `company_code`,
+                        </if>
+                        <if test="fetchFields.excludeFields.status==null">
+                            `status`,
+                        </if>
+                        <if test="fetchFields.excludeFields.joinMemberCount==null">
+                            `join_member_count`,
+                        </if>
+                        <if test="fetchFields.excludeFields.maxJoinMemberCount==null">
+                            `max_join_member_count`,
+                        </if>
+                        <if test="fetchFields.excludeFields.categoryId==null">
+                            `category_Id`,
+                        </if>
+                        <if test="fetchFields.excludeFields.startTime==null">
+                            `start_time`,
+                        </if>
+                        <if test="fetchFields.excludeFields.endTime==null">
+                            `end_time`,
+                        </if>
+                        <if test="fetchFields.excludeFields.createTime==null">
+                            `create_time`,
+                        </if>
+                        <if test="fetchFields.excludeFields.updateTime==null">
+                            `update_time`,
+                        </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                            `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.bytesprint.infrastructure.mysql.pojo.ProjectPojo$QueryBuilder) == false">
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

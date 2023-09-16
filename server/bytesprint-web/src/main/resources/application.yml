@@ -1,0 +1,13 @@
+# 使用SpringBoot内置tomcat启动配置
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: @profiles.active@
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.bytesprint.infrastructure.mysql.pojo
+  configuration:
+    map-underscore-to-camel-case: true

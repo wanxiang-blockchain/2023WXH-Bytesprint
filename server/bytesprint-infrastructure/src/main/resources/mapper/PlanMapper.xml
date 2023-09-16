@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bytesprint.infrastructure.mysql.mapper.PlanMapper">
+
+
+    <insert id="insertPlan" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `bytesprint_plan`
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                `id`,
+            </if>
+            <if test="uid!=null">
+                `uid`,
+            </if>
+            <if test="requirementId!=null">
+                `requirement_id`,
+            </if>
+            <if test="requirementTime!=null">
+                `requirement_time`,
+            </if>
+            <if test="requirementStatus!=null">
+                `requirement_status`,
+            </if>
+            <if test="startTime!=null">
+                `start_time`,
+            </if>
+            <if test="expectedFinishTime!=null">
+                `expected_finish_time`,
+            </if>
+            <if test="actualFinishTime!=null">
+                `actual_finish_time`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="uid!=null">
+                #{uid},
+            </if>
+            <if test="requirementId!=null">
+                #{requirementId},
+            </if>
+            <if test="requirementTime!=null">
+                #{requirementTime},
+            </if>
+            <if test="requirementStatus!=null">
+                #{requirementStatus},
+            </if>
+            <if test="startTime!=null">
+                #{startTime},
+            </if>
+            <if test="expectedFinishTime!=null">
+                #{expectedFinishTime},
+            </if>
+            <if test="actualFinishTime!=null">
+                #{actualFinishTime},
+            </if>
+        </trim>
+        )
+    </insert>
+
+
+    <update id="updatePlan">
+        UPDATE `bytesprint_plan`
+        SET
+        <trim suffixOverrides=",">
+            <if test="uid != null and uid!=''">
+                `uid` = #{uid},
+            </if>
+            <if test="requirementId != null">
+                `requirement_id` = #{requirementId},
+            </if>
+            <if test="requirementTime != null">
+                `requirement_time` = #{requirementTime},
+            </if>
+            <if test="requirementStatus != null and requirementStatus!=''">
+                `requirement_status` = #{requirementStatus},
+            </if>
+            <if test="startTime != null">
+                `start_time` = #{startTime},
+            </if>
+            <if test="expectedFinishTime != null">
+                `expected_finish_time` = #{expectedFinishTime},
+            </if>
+            <if test="actualFinishTime != null">
+                `actual_finish_time` = #{actualFinishTime},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+            `id` = #{id} and
+        </trim>
+    </update>
+
+    <resultMap type="com.bytesprint.infrastructure.mysql.pojo.PlanPojo" id="PlanMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="requirementId" column="requirement_id"/>
+        <result property="requirementTime" column="requirement_time"/>
+        <result property="requirementStatus" column="requirement_status"/>
+        <result property="startTime" column="start_time"/>
+        <result property="expectedFinishTime" column="expected_finish_time"/>
+        <result property="actualFinishTime" column="actual_finish_time"/>
+    </resultMap>
+
+
+    <select id="queryPlan" resultMap="PlanMap">
+        select
+        <include refid="baseResult"></include>
+        from `bytesprint_plan`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="uid != null and uid!=''">
+                `uid` = #{uid} and
+            </if>
+            <if test="requirementId != null">
+                `requirement_id` = #{requirementId} and
+            </if>
+            <if test="requirementTime != null">
+                `requirement_time` = #{requirementTime} and
+            </if>
+            <if test="requirementStatus != null and requirementStatus!=''">
+                `requirement_status` = #{requirementStatus} and
+            </if>
+            <if test="startTime != null">
+                `start_time` = #{startTime} and
+            </if>
+            <if test="expectedFinishTime != null">
+                `expected_finish_time` = #{expectedFinishTime} and
+            </if>
+            <if test="actualFinishTime != null">
+                `actual_finish_time` = #{actualFinishTime} and
+            </if>
+            <if test="(_parameter instanceof com.bytesprint.infrastructure.mysql.pojo.PlanPojo$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="uidList != null">
+                    `uid` in
+                    <foreach collection="uidList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyUid!=null and fuzzyUid.size()>0">
+                    (
+                    <foreach collection="fuzzyUid" separator="or" item="item">
+                        `Uid` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyUid!=null and rightFuzzyUid.size()>0">
+                    (
+                    <foreach collection="rightFuzzyUid" separator="or" item="item">
+                        `Uid` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="requirementIdList != null">
+                    `requirement_id` in
+                    <foreach collection="requirementIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="requirementIdSt !=null">
+                    `requirement_id` >= #{requirementIdSt} and
+                </if>
+                <if test="requirementIdEd!=null">
+                    `requirement_id` &lt;= #{requirementIdEd} and
+                </if>
+                <if test="requirementTimeList != null">
+                    `requirement_time` in
+                    <foreach collection="requirementTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="requirementTimeSt !=null">
+                    `requirement_time` >= #{requirementTimeSt} and
+                </if>
+                <if test="requirementTimeEd!=null">
+                    `requirement_time` &lt;= #{requirementTimeEd} and
+                </if>
+                <if test="requirementStatusList != null">
+                    `requirement_status` in
+                    <foreach collection="requirementStatusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyRequirementStatus!=null and fuzzyRequirementStatus.size()>0">
+                    (
+                    <foreach collection="fuzzyRequirementStatus" separator="or" item="item">
+                        `Requirement_status` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyRequirementStatus!=null and rightFuzzyRequirementStatus.size()>0">
+                    (
+                    <foreach collection="rightFuzzyRequirementStatus" separator="or" item="item">
+                        `Requirement_status` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="startTimeList != null">
+                    `start_time` in
+                    <foreach collection="startTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="startTimeSt !=null">
+                    `start_time` >= #{startTimeSt} and
+                </if>
+                <if test="startTimeEd!=null">
+                    `start_time` &lt;= #{startTimeEd} and
+                </if>
+                <if test="expectedFinishTimeList != null">
+                    `expected_finish_time` in
+                    <foreach collection="expectedFinishTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="expectedFinishTimeSt !=null">
+                    `expected_finish_time` >= #{expectedFinishTimeSt} and
+                </if>
+                <if test="expectedFinishTimeEd!=null">
+                    `expected_finish_time` &lt;= #{expectedFinishTimeEd} and
+                </if>
+                <if test="actualFinishTimeList != null">
+                    `actual_finish_time` in
+                    <foreach collection="actualFinishTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="actualFinishTimeSt !=null">
+                    `actual_finish_time` >= #{actualFinishTimeSt} and
+                </if>
+                <if test="actualFinishTimeEd!=null">
+                    `actual_finish_time` &lt;= #{actualFinishTimeEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryPlanLimit1" resultMap="PlanMap">
+        select
+        <include refid="baseResult"></include>
+        from `bytesprint_plan`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="uid != null and uid!=''">
+                `uid` = #{uid} and
+            </if>
+            <if test="requirementId != null">
+                `requirement_id` = #{requirementId} and
+            </if>
+            <if test="requirementTime != null">
+                `requirement_time` = #{requirementTime} and
+            </if>
+            <if test="requirementStatus != null and requirementStatus!=''">
+                `requirement_status` = #{requirementStatus} and
+            </if>
+            <if test="startTime != null">
+                `start_time` = #{startTime} and
+            </if>
+            <if test="expectedFinishTime != null">
+                `expected_finish_time` = #{expectedFinishTime} and
+            </if>
+            <if test="actualFinishTime != null">
+                `actual_finish_time` = #{actualFinishTime} and
+            </if>
+            <if test="(_parameter instanceof com.bytesprint.infrastructure.mysql.pojo.PlanPojo$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="uidList != null">
+                    `uid` in
+                    <foreach collection="uidList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyUid!=null and fuzzyUid.size()>0">
+                    (
+                    <foreach collection="fuzzyUid" separator="or" item="item">
+                        `Uid` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyUid!=null and rightFuzzyUid.size()>0">
+                    (
+                    <foreach collection="rightFuzzyUid" separator="or" item="item">
+                        `Uid` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="requirementIdList != null">
+                    `requirement_id` in
+                    <foreach collection="requirementIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="requirementIdSt !=null">
+                    `requirement_id` >= #{requirementIdSt} and
+                </if>
+                <if test="requirementIdEd!=null">
+                    `requirement_id` &lt;= #{requirementIdEd} and
+                </if>
+                <if test="requirementTimeList != null">
+                    `requirement_time` in
+                    <foreach collection="requirementTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="requirementTimeSt !=null">
+                    `requirement_time` >= #{requirementTimeSt} and
+                </if>
+                <if test="requirementTimeEd!=null">
+                    `requirement_time` &lt;= #{requirementTimeEd} and
+                </if>
+                <if test="requirementStatusList != null">
+                    `requirement_status` in
+                    <foreach collection="requirementStatusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="fuzzyRequirementStatus!=null and fuzzyRequirementStatus.size()>0">
+                    (
+                    <foreach collection="fuzzyRequirementStatus" separator="or" item="item">
+                        `Requirement_status` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="rightFuzzyRequirementStatus!=null and rightFuzzyRequirementStatus.size()>0">
+                    (
+                    <foreach collection="rightFuzzyRequirementStatus" separator="or" item="item">
+                        `Requirement_status` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="startTimeList != null">
+                    `start_time` in
+                    <foreach collection="startTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="startTimeSt !=null">
+                    `start_time` >= #{startTimeSt} and
+                </if>
+                <if test="startTimeEd!=null">
+                    `start_time` &lt;= #{startTimeEd} and
+                </if>
+                <if test="expectedFinishTimeList != null">
+                    `expected_finish_time` in
+                    <foreach collection="expectedFinishTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="expectedFinishTimeSt !=null">
+                    `expected_finish_time` >= #{expectedFinishTimeSt} and
+                </if>
+                <if test="expectedFinishTimeEd!=null">
+                    `expected_finish_time` &lt;= #{expectedFinishTimeEd} and
+                </if>
+                <if test="actualFinishTimeList != null">
+                    `actual_finish_time` in
+                    <foreach collection="actualFinishTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach>
+                    and
+                </if>
+                <if test="actualFinishTimeSt !=null">
+                    `actual_finish_time` >= #{actualFinishTimeSt} and
+                </if>
+                <if test="actualFinishTimeEd!=null">
+                    `actual_finish_time` &lt;= #{actualFinishTimeEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `uid`,
+            `requirement_id`,
+            `requirement_time`,
+            `requirement_status`,
+            `start_time`,
+            `expected_finish_time`,
+            `actual_finish_time`,
+        </trim>
+    </sql>
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test="(_parameter instanceof com.bytesprint.infrastructure.mysql.pojo.PlanPojo$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                        <if test="fetchFields.fetchFields.id==true">
+                            `id`,
+                        </if>
+                        <if test="fetchFields.fetchFields.uid==true">
+                            `uid`,
+                        </if>
+                        <if test="fetchFields.fetchFields.requirementId==true">
+                            `requirement_id`,
+                        </if>
+                        <if test="fetchFields.fetchFields.requirementTime==true">
+                            `requirement_time`,
+                        </if>
+                        <if test="fetchFields.fetchFields.requirementStatus==true">
+                            `requirement_status`,
+                        </if>
+                        <if test="fetchFields.fetchFields.startTime==true">
+                            `start_time`,
+                        </if>
+                        <if test="fetchFields.fetchFields.expectedFinishTime==true">
+                            `expected_finish_time`,
+                        </if>
+                        <if test="fetchFields.fetchFields.actualFinishTime==true">
+                            `actual_finish_time`,
+                        </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                        <if test="fetchFields.excludeFields.id==null">
+                            `id`,
+                        </if>
+                        <if test="fetchFields.excludeFields.uid==null">
+                            `uid`,
+                        </if>
+                        <if test="fetchFields.excludeFields.requirementId==null">
+                            `requirement_id`,
+                        </if>
+                        <if test="fetchFields.excludeFields.requirementTime==null">
+                            `requirement_time`,
+                        </if>
+                        <if test="fetchFields.excludeFields.requirementStatus==null">
+                            `requirement_status`,
+                        </if>
+                        <if test="fetchFields.excludeFields.startTime==null">
+                            `start_time`,
+                        </if>
+                        <if test="fetchFields.excludeFields.expectedFinishTime==null">
+                            `expected_finish_time`,
+                        </if>
+                        <if test="fetchFields.excludeFields.actualFinishTime==null">
+                            `actual_finish_time`,
+                        </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                            `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.bytesprint.infrastructure.mysql.pojo.PlanPojo$QueryBuilder) == false">
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>
